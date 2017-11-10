@@ -1,0 +1,64 @@
+--- Network Security Groups ---
+
+NSG's have pessimistic rules, meaning unless something is allowed, it is blocked.
+
+Priority rules are executed in order, priority rules can range from 100 to 4096.
+
+Connections are stateful, meaning that if a specific inbound connection is allowed,
+the server is also allowed to return a response on the same port to the same IP address.
+For example, if an inbound connection is allowed on port 80 over TCP, the server can also respond on port 80 over TCP,
+even if there is an outbound rule blocking all traffic on port 80 over TCP.
+
+By default, the NSG only allows incoming RDP connections on port 3389 with priority 1000.
+
+--- IP Addressing ---
+
+Private IP addresses are usually used for internal application gateways, internal load balancers and virtual machines.
+
+They are dynamic by default, a vm restart will let the vm retain the dynamic IP address,
+but a stop and start will release and reassign a different one to that vm.
+
+There is a maximum of 4096 private IP addresses per virtual network, 50 per virtual subnet.
+Private static IP addresses should be used for domain controllers, firewalls and vm's providing a service that need to retain an IP address.
+
+Public IP addresses are usually used for external application gateways, external load balancers, vpn gateways and virtual machines.
+
+While IPv4 addresses can be dynamic or static, IPv6 addresses are always dynamic.
+There is a maximum of 20 public static IP addresses per subscription.
+
+Dynamic addresses are assigned when the resource they are associated to is started and released when it is stopped.
+It is very likely that upon restart, this resource will be assigned a new IP address.
+There is a maximum of 60 public dynamic IP addresses per subscription.
+
+A public IP resource with an IPv4 address cannot convert it into an IPv6 address and vice-versa.
+
+Static public IP addresses are best used to prevent the need to update a DNS A record's IP address or when using an SSL certificate bound to a specific IP address.
+
+Azure virtual network DNS can be used together with the FQDN of a server to avoid the need for a static IP address.
+
+--- Hybrid Networking ---
+
+Point-to-Site VPN (P2S) is for providing a single user or machine access to an Azure virtual network.
+It is certificate-based and does not require a VPN device or local public IP address.
+Throughput is limited to 100 Mbps and traffic is sent over public internet via SSTP.
+There is a maximum of 128 connections.
+Supports only Windows 7/8/10 and Windows Server 2008/2012 (R2).
+Limited access to VM's.
+The connection is not persistent.
+
+Site-to-Site VPN (S2S) is for providing a small group of clients behind an on-prem network device access to an Azure virtual network.
+A public IP address and a compatible VPN device are required.
+Throughput is limited to 100 Mbps and traffic is sent over public internet via IPSec.
+There is a maximum of 10 to 30 IPSec tunnels, depending on VPN gateway service tier.
+Supports all operating systems.
+Limited access to VM's.
+The connection is persistent, clients can automatically reconnect after a restart.
+
+ExpressRoute is a dedicated, private connection to Azure.
+Throughput ranges from 50 Mbps to 10 Gbps depending on gateway SKU.
+Increased data security because network traffic is not sent over the public internet.
+Access to all Azure services through Private (Azure virtual networks), Public (Storage services, SQL DB and Web Apps) and Microsoft (Dynamics 365, PowerBI, Office 365) peering.
+
+These services are not charged for, but access to their VPN gateways is, per hour.
+P2S and S2S use Basic, Standard and High Performance tiers.
+ExpressRoute can access an additional tier, Ultra Performance and is also considerably more expensive.
