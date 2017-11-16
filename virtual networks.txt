@@ -1,3 +1,31 @@
+--- User Defined Routes ---
+
+UDR's override the default network flow in Azure:
+- Local VNet rule: specifies VM-to-VM routing within the same subnet, no middle-man hop.
+- On-premises rule: specifies all routes to Azure to use the VPN appliance as the next hop.
+- Internet rule: specifies all VNet traffic to use the gateway or load balancer as its next hop.
+
+How to set up a UDR:
+- Create an appliance VM, gateway or network.
+- Affix a static address to that appliance/gateway/network.
+- Define a UDR that assigns the address prefixes that should be routed via the UDR, the type of hop and its address.
+- Assign that UDR to the subnet.
+
+UDR 'next hop' types:
+- Virtual network: send packets to another Azure VNet or a subnet within the same VNet.
+- Virtual network gateway: the VPN gateway for a Site-to-Site VPN connection.
+- Internet: the internet gateway.
+- Virtual Appliance: A VM that is acting as a network appliance.
+- None: a black hole that discards all packets sent to it.
+
+When to use a UDR:
+- Any time you want to insert a layer of security or specific traffic flow between network boundaries.
+    - Force tunneling through an alternate/on-premises network. 
+    - Run traffic through a specialized network appliance.
+        - Intermediate firewalls.
+        - Special load balancers.
+        - Intermediary/specialized protocol handling.
+
 --- Network Security Groups ---
 
 NSG's have pessimistic rules, meaning unless something is allowed, it is blocked.
