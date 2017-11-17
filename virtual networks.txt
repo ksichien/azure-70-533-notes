@@ -135,8 +135,7 @@ An ExpressRoute connection sets up three peering configurations:
 - Azure Public Peering for Azure Public IP's
 - Azure Private Peering for Virtual Networks
 
-CloudExchange Co-Location
-
-Point-to-Point Ethernet Connection
-
-Any-to-Any (IPVPN) Connection
+Types of connections:
+- CloudExchange Co-Location
+- Point-to-Point Ethernet Connection
+- Any-to-Any (IPVPN) Connection
