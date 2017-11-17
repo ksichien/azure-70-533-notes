@@ -90,3 +90,33 @@ Access to all Azure services through Private (Azure virtual networks), Public (S
 These services are not charged for, but access to their VPN gateways is, per hour.
 P2S and S2S use Basic, Standard and High Performance tiers.
 ExpressRoute can access an additional tier, Ultra Performance and is also considerably more expensive.
+
+--- S2S VPN Gateway Configuration ---
+
+Requirements:
+- Azure:
+    - Gateway subnet
+    - Azure VPN Gateway
+    - Local network gateway
+    - VPN connection definition
+- On-premises:
+    - Supported VPN device
+    - Shared key
+
+Route-based VPN's (Dynamic) are most common, don't reference a specific tunnel and allow multi-site connections (more than one on-prem network can connect to Azure).
+
+Policy-baed VPN's (Static) are the easiest to setup, but are less flexible and have limited connectivity.
+
+When setting up an S2S VPN connection, it is very important to keep in mind that all the adress spaces in all sites cannot overlap.
+For example, the Azure VNet is in the 10.20.0.0/16 and 10.21.0.0/16 address spaces, the on-prem local network is in the 10.0.0.0/16 and 10.1.0.0/16 address spaces.
+
+An Azure VPN Gateway is a virtual appliance that connects an Azure virtual network.
+When setting it up, a virtual network backing the gateway, a public IP address and a gateway SKU must be provided.
+
+All gateways (VPN & application gateways) must live in a gateway subnet.
+During setup, it must be named "GatewaySubnet" and it is best practice to have the gateway address range as the first subnet within a virtual network.
+
+The Local Network Gateway is required to connect to your on-premises network.
+During setup, the on-prem VPN device's public IP address and all address spaces available to the Azure VPN Gateway must be provided.
+
+For on-premises VPN device setup, it is always required to generate a shared key and add the Azure VPN Gateway's IP address.
