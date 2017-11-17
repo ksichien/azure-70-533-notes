@@ -120,3 +120,23 @@ The Local Network Gateway is required to connect to your on-premises network.
 During setup, the on-prem VPN device's public IP address and all address spaces available to the Azure VPN Gateway must be provided.
 
 For on-premises VPN device setup, it is always required to generate a shared key and add the Azure VPN Gateway's IP address.
+
+--- ExpressRoute Configuration ---
+
+Requirements:
+- Azure subscription & Office365 account
+- Approved connectivity provider
+- Redundant border gateway protocol sessions
+- Meet NAT requirements for non-public IP requests
+- Meet QoS requirements for services such as Skype for Business
+
+An ExpressRoute connection sets up three peering configurations:
+- Microsoft Peering for Office 365 and Dynamics 365
+- Azure Public Peering for Azure Public IP's
+- Azure Private Peering for Virtual Networks
+
+CloudExchange Co-Location
+
+Point-to-Point Ethernet Connection
+
+Any-to-Any (IPVPN) Connection
