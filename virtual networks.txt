@@ -139,3 +139,37 @@ Types of connections:
 - CloudExchange Co-Location
 - Point-to-Point Ethernet Connection
 - Any-to-Any (IPVPN) Connection
+
+--- Peering and VNet VPNs ---
+
+Peering makes two virtual networks appear to be continuous.
+
+Requirements:
+- An ARM VNet can be peered with an ASM VNet or another ARM VNet but you can't peer two ASM VNets.
+- Maximum 10 peering connections per VNet (50 if you contact support).
+
+Benefits:
+- Lower latency.
+- Improved bandwidth.
+
+Drawbacks:
+- The VNets need to be in the same region.
+- Their Network address spaces cannot overlap.
+
+VNet VPNs can connect two virtual networks between regions.
+
+Requirements:
+- Only route-based, dynamic VPNs.
+
+Benefits:
+- Greater isolation.
+- More control.
+
+Drawbacks:
+- Considerably reduced network performance.
+
+Creation:
+- Create a Gateway subnet in each VNet.
+- Add VPN gateways to each subnet.
+- Assign each VPN gateway a Public IP.
+- Connect the VPNs together.
